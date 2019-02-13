@@ -18,16 +18,16 @@ class WeatherLocation extends Component {
             data: null
         };
 
-        console.log("constructor");
+        //console.log("constructor");
     }
 
     componentDidMount() { // Sirve para llamadas al servidor e inicializar cosas
-        console.log("componentDidMount");
+        //console.log("componentDidMount");
         this.handleUpdateClick();
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("componentDidUpdate");
+        //console.log("componentDidUpdate");
     }
     
     /*
@@ -46,11 +46,12 @@ class WeatherLocation extends Component {
         const api_weather = getUrlWeatherByCity(this.state.city);
 
         fetch(api_weather).then( resolve => {
-            return resolve.json()
+            return resolve.json();
         }).then( data => {
-            console.log("Resultado del handleUpdateClick")
+            //console.log("Resultado del handleUpdateClick");
+            //console.log(data);
             const newWeather = transformWeather(data);
-            console.log(newWeather);
+            //console.log(newWeather);
             //debugger;
             this.setState({
                 data: newWeather
@@ -59,10 +60,10 @@ class WeatherLocation extends Component {
     }
 
     render() {
-        console.log("render");
+        const {onWeatherLocationClick} = this.props;
         const {city, data} = this.state;
         return (
-            <div className="weatherLocationCont">
+            <div className="weatherLocationCont" onClick={onWeatherLocationClick}>
                 <Location city={city}></Location>
                 {data ? // Operador ternario if
                     <WeatherData data={data}></WeatherData> :
@@ -75,6 +76,7 @@ class WeatherLocation extends Component {
 
 WeatherLocation.propTypes = {
     city: PropTypes.string.isRequired,
+    onWeatherLocationClick: PropTypes.func,
 }
 
 export default WeatherLocation; // The rest of the app can be invoke it because we use default
