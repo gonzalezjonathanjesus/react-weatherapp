@@ -3,11 +3,13 @@ import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 
 import './App.css';
+import { createMuiTheme } from '@material-ui/core';
 
 const cities = [
     'Buenos aires,ar',
@@ -16,11 +18,17 @@ const cities = [
     'Madrid,es',
 ]
 
+const theme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+    },
+});
+
 class App extends Component {
     constructor() {
         super();
 
-        this.state = {city: 'Nueva ciudad'};
+        this.state = {city: null};
     }
 
     handleSelectedLocation = city => {
@@ -30,29 +38,39 @@ class App extends Component {
     render() {
         const { city } = this.state;
         return (
-            <Grid fluid>
-            <Row>
-                <AppBar position='sticky'>
-                    <Toolbar>
-                        <Typography variant='title' color='inherit'>
-                            Weather App
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-            </Row>
-            <Row>
-                <Col xs={12} md={6}>
-                <LocationList cities = { cities } onSelectedLocation = {this.handleSelectedLocation}></LocationList>
-                </Col>
-                <Col xs={12} md={6}>
-                    <Paper elevation={4}>
-                        <div className="detail">
-                            <ForecastExtended city={this.state.city}></ForecastExtended>
-                        </div>
-                    </Paper>
-                </Col>
-            </Row>
-            </Grid>
+            <MuiThemeProvider theme={theme}>
+                <Grid fluid>
+                <Row>
+                    <AppBar position='sticky'>
+                        <Toolbar>
+                            <Typography variant='h6' color='inherit'>
+                                Weather App
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                </Row>
+                <Row>
+                    <Col xs={12} md={6}>
+                    <LocationList cities = { cities } onSelectedLocation = {this.handleSelectedLocation}></LocationList>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <Paper elevation={4}>
+                            <div className="detail">
+                            {/*
+                                city ? // Equivalente a city !== null
+                                    <ForecastExtended city={this.state.city}></ForecastExtended> :
+                                    null
+                                */
+                                city && // Equivalente al ternario de arriba
+                                <ForecastExtended city={this.state.city}></ForecastExtended>
+                            }
+                                
+                            </div>
+                        </Paper>
+                    </Col>
+                </Row>
+                </Grid>
+            </MuiThemeProvider>
         );
     }
 }
