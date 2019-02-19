@@ -34,5 +34,19 @@
 .detail {
     background: #eaeaea;
     height: calc(100vh - 64px);
-    width: 100%;
+    width: calc(100% - 40px);
+    overflow: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+@media (max-width: 768px) {
+    .detail {
+        background: #eaeaea;
+        height: 45vh;
+        width: calc(100% - 40px);
+        overflow: auto;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
 }
