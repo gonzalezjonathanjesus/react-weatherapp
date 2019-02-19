@@ -31,8 +31,20 @@ class ForecastExtended extends Component {
 
     componentDidMount() {
         // fetch or axios (Support level for older browsers)
+        this.updateCity(this.props.city);
+    }
+
+    componentWillReceiveProps(nextProps) { // It's executes always component props changes except the first time that te component is loaded.
+        if (nextProps.city !== this.props.city) {
+            this.setState({ forecastData: null});
+            this.updateCity(nextProps.city);
+        }
+    }
+    
+
+    updateCity = city => {
         console.log('ComponentDidMount ForecastExtended');
-        fetch( getUrlForecastByCity(this.props.city) )
+        fetch( getUrlForecastByCity(city) )
         .then( 
             data => (data.json())
         )
@@ -44,7 +56,6 @@ class ForecastExtended extends Component {
                 this.setState({forecastData});
             }
         );
-
     }
 
     renderForecastItemDays(forecastData) {

@@ -16,6 +16,7 @@ const cities = [
     'Bogota,col',
     'Santo Domingo,dom',
     'Madrid,es',
+    'Moscow,ru',
 ]
 
 const theme = createMuiTheme({

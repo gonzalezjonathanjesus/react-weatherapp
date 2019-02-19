@@ -1,5 +1,7 @@
 .locationList {
-    max-height: calc(100vh - 64px);
+    height: 100%;
+    max-height: calc(100vh - 84px);
+    margin-top: 10px;
     overflow: auto;
 }
 
