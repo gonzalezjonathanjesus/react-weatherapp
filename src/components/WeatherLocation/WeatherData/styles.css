@@ -6,6 +6,10 @@
     border-radius: 5px;
     padding: 5px;
     box-sizing: border-box;
+
+    display: flex;
+    flex-flow: row;
+    align-items: center;
 }
 
 .weatherExtraInfoCont {
@@ -17,7 +21,11 @@
 
 .weatherTemperatureCont {
     width: 60%;
-    display: inline-block;
+    padding: 0 2%;
+
+    display: flex;
+    flex-flow: row;
+    align-items: center;
 }
 
 .temperature {
@@ -41,4 +49,8 @@
 
 .wicon {
     color: rgb(255, 72, 0);
+}
+
+.wi-rain:before {
+    vertical-align: text-top;
 }
