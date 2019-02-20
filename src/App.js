@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
@@ -8,7 +10,6 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 import { setCity } from './actions';
-import { store } from './store';
 
 import './App.css';
 import { createMuiTheme } from '@material-ui/core';
@@ -19,7 +20,7 @@ const cities = [
     'Santo Domingo,dom',
     'Madrid,es',
     'Moscow,ru',
-]
+];
 
 const theme = createMuiTheme({
     typography: {
@@ -40,8 +41,7 @@ class App extends Component {
         this.setState({city});
         console.log(`handleSelectedLocation ${city}`);
 
-        store.dispatch(setCity(city)); // We throw an action through dispatch(), with te type (name) and value
-        // An action is an object indentified with a type, a string, and value.
+        this.props.dispatchSetCity(city); // función injectada a las propiedades del componente
     };
 
     render() {
@@ -84,4 +84,14 @@ class App extends Component {
     }
 }
 
-export default App;
+App.propTypes = {
+    dispatchSetCity: PropTypes.func.isRequired,
+}
+
+const mapDispatchToProps = dispatch => ({
+    dispatchSetCity: value => dispatch(setCity(value))
+});
+
+export default connect(null, mapDispatchToProps)(App); // HighOrderComponent
+/* Requires two functions, one that I don't know what is, and the other that are actions, after connect returns another functions that require the result of a component, and returns the component with the capability of connect with the store. */
+
