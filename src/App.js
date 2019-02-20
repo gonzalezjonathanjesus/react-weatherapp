@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import { createStore } from 'redux'; // Where we will save the state of the app;
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
 
@@ -25,6 +26,8 @@ const theme = createMuiTheme({
     },
 });
 
+const store = createStore( () => {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()); // With this way we create a store
+
 class App extends Component {
     constructor() {
         super();
@@ -34,6 +37,10 @@ class App extends Component {
 
     handleSelectedLocation = city => {
         this.setState({city});
+        console.log(`handleSelectedLocation ${city}`);
+        const action  = { type: 'setCity', value: city};
+        store.dispatch(action); // We throw an action through dispatch(), with te type (name) and value
+        // An action is an object indentified with a type, a string, and value.
     };
 
     render() {
