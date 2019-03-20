@@ -17,6 +17,7 @@
     "react-scripts": "^2.1.5",
     "react-weathericons": "^1.0.4",
     "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "yarn": "^1.13.0"
   },
   "scripts": {
