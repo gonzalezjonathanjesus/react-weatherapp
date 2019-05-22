@@ -10,3 +10,5 @@ export const cities = (state = {}, action) => {
             return state;
     }
 }
+// Params, the portion of state that is handled by this reducer and selected city
+export const getForecastDataFromCities = (state, city) => state[city] && state[city].forecastData; // If state[city] !== null, state[city].forecastData 
